@@ -54,6 +54,36 @@ const loginUser = async (req, res) => {
   }
 };
 
+// verify token
+const verifyToken = async (req, res) => {
+  // verify authentication
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({ error: "Authorization token required" });
+  }
+
+  // split from Bearer
+  const token = authorization.split(" ")[1];
+
+  try {
+    // verify token
+    const { username } = jwt.verify(token, process.env.JWT_SECRET);
+
+    req.user = await User.findOne({ username }).select("username");
+    
+    if(req.user){
+      res.status(200).json({msg: "Authorized Token"});
+    } else {
+      res.status(401).json({ error: "Unauthorized Request" });
+    }
+
+  } catch (error) {
+    console.log(error);
+    res.status(401).json({ error: "Unauthorized Request" });
+  }
+}
+
 // get all user info
 const getUserInfo = async (req, res) => {
   const { username } = req.user;
@@ -67,15 +97,37 @@ const getUserInfo = async (req, res) => {
       const allInfo = await User.find();
       res.status(200).json(allInfo);
     } else {
-      res.status(401).json({ error: "Authorization Level Not High Enough" });
+      res.status(401).json({ msg: "Authorization Level Not High Enough" });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
+// get warehouse staff
+const getWarehouseStaff = async (req, res) => {
+  const {username} = req.user;
+
+  try {
+    const { role } = await User.findOne({ username }).select("role");
+
+    if(role === 1) {
+      // send warehouse staff names
+      const names = await User.find({ role: 2}).select("username");
+      
+      res.status(200).json(names);
+    } else {
+      res.status(401).json({ msg: "Authorization Level Not High Enough" });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 module.exports = {
   registerUser,
   loginUser,
   getUserInfo,
+  verifyToken,
+  getWarehouseStaff,
 };

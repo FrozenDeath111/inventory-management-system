@@ -1,0 +1,28 @@
+.navbar {
+    padding: 0.5% 1%;
+    display: flex;
+    justify-content: end;
+    background-color: aliceblue;
+}
+
+.nav-element:first-child {
+    margin-right: auto;
+}
+
+.nav-button {
+    border-style: none;
+    height: 100%;
+    background-color: aliceblue;
+    padding: 5px 10px;
+    font-size: large;
+    font-weight: 700;
+    border: 1px solid chartreuse;
+    transition: .5s ease;
+}
+
+.nav-button:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.66);
+    color: aliceblue;
+    border: 1px solid aliceblue;
+}
