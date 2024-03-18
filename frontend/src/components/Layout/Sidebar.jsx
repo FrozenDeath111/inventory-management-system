@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "../../customHooks/useAuthContext";
 import Admin from "./Admin";
 import "./Layout.css";
+import StoreManager from "./StoreManager";
 
 const Sidebar = ({children}) => {
     const { user } = useAuthContext();
@@ -39,7 +40,7 @@ const Sidebar = ({children}) => {
                     isWarehouseStaff && <h1>WS</h1>
                 }
                 {
-                    isStoreManager && <h1>SM</h1>
+                    isStoreManager && <StoreManager></StoreManager>
                 }
             </div>
             <div className="container">

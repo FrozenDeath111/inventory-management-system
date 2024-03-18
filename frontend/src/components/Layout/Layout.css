@@ -8,6 +8,7 @@
     background-color: rgb(39, 0, 93);
     width: 15%;
     min-width: fit-content;
+    border-right: 3px solid rgb(174, 210, 255);
 }
 
 .sidebar-items {
@@ -24,6 +25,12 @@
     font-size: x-large;
     font-weight: 700;
     padding: 10px 20px;
+    transition: 0.1s ease;
+}
+
+.sidebar-items > a:hover {
+    background-color: rgb(22, 0, 53);
+    border-left: 3px solid rgb(174, 210, 255);
 }
 
 .sidebar-items > a > svg {

@@ -8,7 +8,10 @@ import Sidebar from "./components/Layout/Sidebar";
 import Layout from "./components/Layout/Layout";
 import Dashboard from "./components/Dashboard/Dashboard";
 import AddProduct from "./components/AddProduct/AddProduct";
+import ProductList from "./components/Product/ProductList";
+import Product from "./components/Product/Product";
 import PrivateRoutes from "./utils/PrivateRoutes";
+import ToBeAddProducts from "./components/Product/ToBeAddProducts";
 
 function App() {
   const [enableLogin, setEnableLogin] = useState(false);
@@ -41,6 +44,36 @@ function App() {
                 </Sidebar>
               }
               path="/add-product"
+            />
+            <Route
+              element={
+                <Sidebar>
+                  <Layout>
+                    <ProductList />
+                  </Layout>
+                </Sidebar>
+              }
+              path="/product-list"
+            />
+            <Route
+              element={
+                <Sidebar>
+                  <Layout>
+                    <Product />
+                  </Layout>
+                </Sidebar>
+              }
+              path="/product/:_id"
+            />
+            <Route
+              element={
+                <Sidebar>
+                  <Layout>
+                    <ToBeAddProducts />
+                  </Layout>
+                </Sidebar>
+              }
+              path="/to-be-added"
             />
           </Route>
         </Routes>

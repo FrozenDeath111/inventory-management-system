@@ -5,6 +5,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/user");
 const productRoutes = require("./routes/product");
+const storeRoutes = require("./routes/store");
 
 // app initialization
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors());
 // routes
 app.use("/api/user", userRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/store", storeRoutes);
 
 // db connection
 async function run() {

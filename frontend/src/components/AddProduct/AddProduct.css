@@ -16,6 +16,7 @@
     height: 92%;
     width: 95%;
     border-radius: 1rem;
+    border: 5px solid rgb(39, 0, 93);
 }
 
 .add-product > form > h2 {
@@ -70,6 +71,12 @@
     transition: 0.5s ease;
 }
 
+.selection-container > select:focus {
+    color: rgb(39, 0, 93);
+    background-color: rgb(174, 210, 255);
+    border: 3px solid rgb(39, 0, 93);
+}
+
 .selection-container > button {
     cursor: pointer;
     border-style: none;
@@ -79,4 +86,11 @@
     background-color: rgb(39, 0, 93);
     border: 3px solid rgb(174, 210, 255);
     width: 30%;
+    transition: 0.5s ease;
+}
+
+.selection-container > button:hover {
+    color: rgb(39, 0, 93);
+    background-color: rgb(174, 210, 255);
+    border: 3px solid rgb(39, 0, 93);
 }
