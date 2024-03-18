@@ -17,6 +17,12 @@
     border: 10px solid rgb(39, 0, 93);
 }
 
+.product-list > h1 {
+    color: rgb(39, 0, 93);
+    margin: 1rem 3rem;
+    border-bottom: 2px solid rgb(39, 0, 93);
+}
+
 .pagination {
     display: flex;
     justify-content: center;
@@ -46,17 +52,21 @@
     width: 45%;
     border-radius: 1rem;
     border: 5px solid rgb(39, 0, 93);
+    overflow-y: auto;
 }
 
 .product-info > h1 {
     color: rgb(39, 0, 93);
-    margin-top: 1rem;
+    text-align: left;
+    border-bottom: 2px solid rgb(39, 0, 93);
+    margin: 1rem;
 }
 
 .product-history > h1 {
     color: rgb(39, 0, 93);
-    overflow: auto;
-    margin-top: 1rem;
+    text-align: left;
+    border-bottom: 2px solid rgb(39, 0, 93);
+    margin: 1rem;
 }
 
 .description-style {
@@ -80,6 +90,3 @@
     margin-bottom: 1rem;
 }
 
-.prod-list-info {
-    
-}

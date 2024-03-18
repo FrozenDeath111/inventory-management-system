@@ -6,6 +6,10 @@ body {
     width: 100%;
 }
 
+table {
+    margin: 1rem 0.5rem;
+}
+
 .error-show{
     color: crimson;
 }

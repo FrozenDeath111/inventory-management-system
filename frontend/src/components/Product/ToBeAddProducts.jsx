@@ -43,6 +43,7 @@ const ToBeAddProducts = () => {
   }, [user]);
 
   const handleAddToStore = (_id) => {
+    const data = [...products];
     const addProduct = async () => {
         if (user) {
             const response = await fetch(
@@ -66,6 +67,9 @@ const ToBeAddProducts = () => {
             }
     
             if(response.ok){
+                const newData = data.filter(item => item._id != _id);
+                setProducts(newData);
+                alert(jsonData.msg);
                 setError('');
             }
           } else {
@@ -84,7 +88,7 @@ const ToBeAddProducts = () => {
     <div className="product-container">
       <div className="product-list">
         {
-        error && <h2 className="show-error">{error}</h2>
+        error && <h2 className="error-show">{error}</h2>
       }
       {
         products && products.map(product => <div className="prod-list-info" key={product._id}>

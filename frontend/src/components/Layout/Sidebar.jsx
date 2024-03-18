@@ -1,14 +1,26 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../customHooks/useAuthContext";
-import Admin from "./Admin";
 import "./Layout.css";
+
+import Admin from "./Admin";
 import StoreManager from "./StoreManager";
+import ExitToApp from "@mui/icons-material/ExitToApp";
+import { useLogout } from "../../customHooks/useLogout";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({children}) => {
     const { user } = useAuthContext();
     const [isAdmin, setIsAdmin] = useState(false);
     const [isWarehouseStaff, setIsWarehouseStaff] = useState(false);
     const [isStoreManager, setIsStoreManager] = useState(false);
+
+    const { logout } = useLogout();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate("/");
+    }
 
     useEffect(() => {
         if(user){
@@ -42,6 +54,9 @@ const Sidebar = ({children}) => {
                 {
                     isStoreManager && <StoreManager></StoreManager>
                 }
+                <div className="logout-button">
+                    <button onClick={handleLogout}><ExitToApp />Logout</button>
+                </div>
             </div>
             <div className="container">
             {children}

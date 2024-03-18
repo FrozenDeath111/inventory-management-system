@@ -23,7 +23,6 @@ const stockActivitySchema = new Schema(
     },
     warehouse_staff_username: {
       type: String,
-      required: true,
     },
   },
   {

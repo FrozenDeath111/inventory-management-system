@@ -68,7 +68,7 @@ const Product = () => {
         {
             productDetails && ( <div className="description-style">
                 <h3>Name: {productDetails.name}</h3>
-                <h4>Categoty: {productDetails.category}</h4>
+                <h4>Category: {productDetails.category}</h4>
                 <p>Details: {productDetails.details}</p>
             </div> )
         }

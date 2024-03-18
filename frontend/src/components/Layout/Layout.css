@@ -42,3 +42,31 @@
     min-width: fit-content;
     background-color: rgb(148, 0, 255);
 }
+
+.logout-button {
+    position: fixed;
+    bottom: 5%;
+    left: 1%;
+}
+
+.logout-button > button {
+    border-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    width: 10rem;
+    font-size: large;
+    font-weight: 700;
+    border-radius: 1rem;
+    background-color: rgb(39, 0, 93);
+    color: rgb(174, 210, 255);
+    border: 3px solid rgb(174, 210, 255);
+    transition: 0.5s ease;
+}
+
+.logout-button > button:hover {
+    cursor: pointer;
+    background-color: rgb(174, 210, 255);
+    color: rgb(39, 0, 93);
+}

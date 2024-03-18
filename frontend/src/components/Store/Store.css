@@ -1,0 +1,65 @@
+.table-body {
+    color: rgb(39, 0, 93);
+}
+
+.table-body > tr {
+    background-color: rgb(228, 241, 255);
+}
+
+.table-body > tr:hover {
+    background-color: rgb(39, 0, 93);
+    color: rgb(228, 241, 255);
+}
+
+.table-body > tr > th {
+    background-color: rgb(39, 0, 93);
+    color: rgb(228, 241, 255);
+    font-size: large;
+    font-weight: 700;
+}
+
+.table-body > tr > td {
+    font-size: medium;
+    font-weight: 500;
+}
+
+.table-body > tr > td > a {
+    color: rgb(39, 0, 93);
+    font-size: medium;
+    font-weight: 500;
+    transition: 0.1s ease;
+}
+
+.table-body > tr > td > a:hover {
+    border-bottom: 2px solid rgb(39, 0, 93);
+    font-size: large;
+    font-weight: 700;
+}
+
+.table-button {
+    border-style: none;
+    background-color: rgb(39, 0, 93);
+    color: rgb(174, 210, 255);
+    font-size: medium;
+    height: 2rem;
+    width: fit-content;
+    min-width: 2rem;
+    margin: 0px 10px;
+    padding: 0rem 0.5rem;
+    border: 2px solid rgb(174, 210, 255);
+    border-radius: 1rem;
+    transition: 0.5s ease;
+}
+
+.table-button:hover {
+    cursor: pointer;
+    background-color: rgb(174, 210, 255);
+    color: rgb(39, 0, 93);
+    border: 2px solid rgb(39, 0, 93);
+}
+
+.td-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
