@@ -16,6 +16,7 @@ import Store from "./components/Store/Store";
 import RequestStock from "./components/Store/RequestStock";
 import RequestShow from "./components/Store/RequestShow";
 import Warehouse from "./components/Warehouse/Warehouse";
+import ProductListWH from "./components/Warehouse/ProductListWH";
 
 function App() {
   const [enableLogin, setEnableLogin] = useState(false);
@@ -58,6 +59,16 @@ function App() {
                 </Sidebar>
               }
               path="/product-list"
+            />
+            <Route
+              element={
+                <Sidebar>
+                  <Layout>
+                    <ProductListWH />
+                  </Layout>
+                </Sidebar>
+              }
+              path="/product-list-wh"
             />
             <Route
               element={

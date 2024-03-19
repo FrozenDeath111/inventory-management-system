@@ -17,6 +17,14 @@
     border: 10px solid rgb(39, 0, 93);
 }
 
+.prod-list-info {
+    margin: 0.2rem 0rem;
+}
+
+.prod-list-info > h3 {
+    color: rgb(39, 0, 93);
+}
+
 .product-list > h1 {
     color: rgb(39, 0, 93);
     margin: 1rem 3rem;
@@ -92,4 +100,24 @@
     color: rgb(39, 0, 93);
     border-bottom: 2px dashed rgb(39, 0, 93);
     margin-bottom: 1rem;
+}
+
+.selection-list-prodlist > button, .staff-select {
+    border-style: none;
+    cursor: pointer;
+    background-color: rgb(174, 210, 255);
+    height: 2rem;
+    padding: 0rem 1rem;
+    color: rgb(39, 0, 93);
+    font-size: small;
+    font-weight: 500;
+    border: 2px solid rgb(39, 0, 93);
+    border-radius: 1rem;
+    transition: 0.1s ease;
+}
+
+.selection-list-prodlist > button:hover, .staff-select:hover {
+    background-color: rgb(39, 0, 93);
+    color: rgb(174, 210, 255);
+    border: 2px solid rgb(174, 210, 255);
 }

@@ -3,28 +3,19 @@ import "./Product.css";
 import { useAuthContext } from "../../customHooks/useAuthContext";
 import { Link } from "react-router-dom";
 
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 const ProductList = () => {
   const { user } = useAuthContext();
   const [error, setError] = useState(null);
 
   const [productList, setProductList] = useState([]);
+  const [staffName, setStaffName] = useState("");
+  const [warehouseStaffNames, setWarehouseStaffNames] = useState([]);
 
   useEffect(() => {
-    const dateOption = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      };
     const getProducts = async () => {
       if (user) {
         const response = await fetch(
@@ -45,14 +36,11 @@ const ProductList = () => {
         }
 
         if (response.ok) {
-          for (let index in jsonData) {
-            let date = new Date(jsonData[index].createdAt).toLocaleString(
-              "en-us",
-              dateOption
-            );
-            jsonData[index]["additionDate"] = date;
+          for (let index in jsonData.products) {
+            jsonData.products[index]["addStock"] = 0;
           }
-          setProductList(jsonData);
+          setProductList(jsonData.products);
+          setWarehouseStaffNames(jsonData.staffNames);
           setError("");
         }
       } else {
@@ -67,48 +55,160 @@ const ProductList = () => {
     }
   }, [user]);
 
-  const tableStyle = {
-    minWidth: 650,
-    backgroundColor: "rgb(228, 241, 255)",
+  const handleIncrement = (index) => {
+    let data = [...productList];
+
+    if (data[index].addStock <= 500) {
+      data[index].addStock += 1;
+      setProductList(data);
+    }
+  };
+
+  const handleDecrement = (index) => {
+    let data = [...productList];
+
+    if (data[index].addStock > 0) {
+      data[index].addStock -= 1;
+      setProductList(data);
+    }
+  };
+
+  const handleUpdate = (product_id, index) => {
+    let data = [...productList];
+    let addAmount = productList[index].addStock;
+
+    const addProduct = async () => {
+      const response = await fetch(
+        "http://localhost:4000/api/products/add-product",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify({
+            product_id,
+            addAmount,
+            staffName,
+          }),
+        }
+      );
+
+      const jsonData = await response.json();
+
+      if(!response.ok){
+        setError(jsonData.error);
+      }
+
+      if(response.ok){
+        alert(jsonData.msg);
+        data[index].stock += addAmount;
+        data[index].addStock = 0;
+        setProductList(data);
+        setStaffName('');
+        setError('');
+      }
+    };
+
+    try {
+      if (addAmount === 0) {
+        setError("Please Add Amount");
+      } else if (!staffName) {
+        setError("Please Select Staff");
+      } else {
+        addProduct();
+      }
+    } catch (error) {
+      setError(error);
+    }
   };
 
   const handlePagination = (e) => {
     console.log(e.target.textContent);
-  }
+  };
 
   return (
     <div className="product-container">
       <div className="product-list">
+        <h1>Product List</h1>
         {error && <h2 className="error-show">{error}</h2>}
-        <TableContainer component={Paper}>
-          <Table sx={{ tableStyle }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Product Name</TableCell>
-                <TableCell align="right">Category</TableCell>
-                <TableCell align="right">Warehouse Stock</TableCell>
-                <TableCell align="right">Addition Date</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {productList.map((row) => (
-                <TableRow
-                  key={row._id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    <Link to={"/product/"+row._id}>{row.name}</Link>
-                  </TableCell>
-                  <TableCell align="right">{row.category}</TableCell>
-                  <TableCell align="right">{row.stock}</TableCell>
-                  <TableCell align="right">{row.additionDate}</TableCell>
-                </TableRow>
+        <table>
+          <tbody className="table-body">
+            <tr>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Stock</th>
+              <th>Add Amount</th>
+              <th>Update</th>
+            </tr>
+            {productList &&
+              productList.map((data, index) => (
+                <tr key={data._id}>
+                  <td>
+                    <Link to={"/product/" + data._id}>{data.name}</Link>
+                  </td>
+                  <td>{data.category}</td>
+                  <td>{data.stock}</td>
+                  <td>
+                    <div className="td-button">
+                      <button
+                        className="table-button"
+                        onClick={() => {
+                          handleIncrement(index);
+                        }}
+                      >
+                        <AddIcon />
+                      </button>
+                      {data.addStock}
+                      <button
+                        className="table-button"
+                        onClick={() => {
+                          handleDecrement(index);
+                        }}
+                      >
+                        <RemoveIcon />
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="selection-list-prodlist">
+                      <button
+                        onClick={() => {
+                          handleUpdate(data._id, index);
+                        }}
+                      >
+                        Update
+                      </button>
+                    </div>
+                  </td>
+                </tr>
               ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+          </tbody>
+        </table>
+        <div className="">
+          <select
+            className="staff-select"
+            defaultValue={staffName}
+            onChange={(e) => setStaffName(e.target.value)}
+          >
+            <option value="" disabled>
+              Chose Staff
+            </option>
+            {warehouseStaffNames &&
+              warehouseStaffNames.map((name) => (
+                <option key={name._id} value={name.username}>
+                  {name.username}
+                </option>
+              ))}
+          </select>
+        </div>
         <div className="pagination">
-          <Pagination count={10} variant="outlined" shape="rounded" onChange={handlePagination} />
+          <Pagination
+            count={10}
+            variant="outlined"
+            shape="rounded"
+            onChange={handlePagination}
+          />
         </div>
       </div>
     </div>

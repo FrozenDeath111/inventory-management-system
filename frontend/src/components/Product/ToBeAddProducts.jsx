@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../customHooks/useAuthContext";
+import "./Product.css";
 
 const ToBeAddProducts = () => {
   const { user } = useAuthContext();

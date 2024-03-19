@@ -6,8 +6,12 @@
   background-color: rgb(228, 241, 255);
 }
 
-.table-body > tr:hover {
+.table-body > tr:hover{
   background-color: rgb(39, 0, 93);
+  color: rgb(228, 241, 255);
+}
+
+.table-body > tr:hover > td > a {
   color: rgb(228, 241, 255);
 }
 
@@ -32,6 +36,7 @@
 
 .table-body > tr > td > a:hover {
   border-bottom: 2px solid rgb(39, 0, 93);
+  color: rgb(228, 241, 255);
   font-size: large;
   font-weight: 700;
 }

@@ -81,7 +81,7 @@ const Product = () => {
             <div key={history._id} className="history-style">
                 <h3>State: {history.state}</h3>
                 <h4>Issue Date: {history.additionDate}</h4>
-                <h4>Issue By: {history.warehouse_staff_username}</h4>
+                <h4>Issue By: {history.staff_username}</h4>
             </div>)
         }
       </div>

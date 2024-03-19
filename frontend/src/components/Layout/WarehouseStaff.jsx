@@ -22,7 +22,7 @@ const WarehouseStaff = () => {
         <DashboardIcon />
         Dashboard
       </Link>
-      <Link to="/product-list">
+      <Link to="/product-list-wh">
         <StoreIcon />
         Warehouse
       </Link>

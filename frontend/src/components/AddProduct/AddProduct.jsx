@@ -79,6 +79,11 @@ const AddProduct = () => {
 
         if(response.ok){
           alert(jsonData.msg);
+          setProductName('');
+          setCategory('');
+          setDetails('');
+          setQuantity(0);
+          setStaffName('');
           setError('');
         }
 
@@ -102,32 +107,37 @@ const AddProduct = () => {
         <input
           type="text"
           placeholder="Product Name"
+          value={productName}
           onChange={(e) => setProductName(e.target.value)}
         />
         <input
           type="text"
           placeholder="Category"
+          value={category}
           onChange={(e) => setCategory(e.target.value)}
         />
         <input
           type="textarea"
           placeholder="Details"
+          value={details}
           onChange={(e) => setDetails(e.target.value)}
         />
+        <label htmlFor="quantity">Quantity</label>
         <input
           type="number"
           placeholder="Quantity"
+          value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
         />
         <div className="selection-container">
           <select
-            defaultValue={""}
+            defaultValue={staffName}
             onChange={(e) => setStaffName(e.target.value)}
           >
             <option value="" disabled>
               Chose Warehouse Staff
             </option>
-            {warehouseStaffNames.map((name) => (
+            {warehouseStaffNames && warehouseStaffNames.map((name) => (
               <option key={name._id} value={name.username}>
                 {name.username}
               </option>

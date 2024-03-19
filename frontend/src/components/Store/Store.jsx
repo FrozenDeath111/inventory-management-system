@@ -146,6 +146,7 @@ const Store = () => {
   return (
     <div className="product-container">
       <div className="product-list">
+      <h1>Product List</h1>
         {error && <h2 className="error-show">{error}</h2>}
         <table>
           <tbody className="table-body">
