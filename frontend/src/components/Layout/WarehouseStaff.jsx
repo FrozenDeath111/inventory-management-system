@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../customHooks/useAuthContext";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import FormatListNumberedRtlIcon from "@mui/icons-material/FormatListNumberedRtl";
-import "./Layout";
+import StoreIcon from "@mui/icons-material/Store";
+import InfoIcon from "@mui/icons-material/Info";
 
-const Admin = () => {
+const WarehouseStaff = () => {
   const { user } = useAuthContext();
 
   return (
@@ -15,27 +14,24 @@ const Admin = () => {
           <h1>Profile</h1>
           <h2>Username: {user.username}</h2>
           <h3>Name: {user.name}</h3>
-          <h3>Type: Admin</h3>
+          <h3>Type: Warehouse Staff</h3>
         </div>
       )}
+
       <Link to="/dashboard">
         <DashboardIcon />
         Dashboard
       </Link>
-      <Link to="/add-product">
-        <AddCircleIcon />
-        Add Product
-      </Link>
       <Link to="/product-list">
-        <FormatListNumberedRtlIcon />
-        Product List
+        <StoreIcon />
+        Warehouse
       </Link>
-      <Link to="/request_show">
-        <FormatListNumberedRtlIcon />
-        Request
+      <Link to="/pending">
+        <InfoIcon />
+        Pending
       </Link>
     </div>
   );
 };
 
-export default Admin;
+export default WarehouseStaff;

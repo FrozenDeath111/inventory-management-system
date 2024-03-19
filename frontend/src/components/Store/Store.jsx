@@ -62,6 +62,10 @@ const Store = () => {
       data[index].notValidUpdate = false;
       setStoreData(data);
     }
+
+    if(data[index].toSale == 0) {
+      data[index].notValidUpdate = true;
+    }
   };
 
   const handleDecrement = (index) => {
@@ -73,6 +77,10 @@ const Store = () => {
       data[index].toSale -= 1;
       data[index].notValidUpdate = false;
       setStoreData(data);
+    }
+
+    if(data[index].toSale == 0) {
+      data[index].notValidUpdate = true;
     }
   };
 

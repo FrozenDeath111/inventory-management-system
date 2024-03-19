@@ -15,6 +15,7 @@ import ToBeAddProducts from "./components/Product/ToBeAddProducts";
 import Store from "./components/Store/Store";
 import RequestStock from "./components/Store/RequestStock";
 import RequestShow from "./components/Store/RequestShow";
+import Warehouse from "./components/Warehouse/Warehouse";
 
 function App() {
   const [enableLogin, setEnableLogin] = useState(false);
@@ -107,6 +108,16 @@ function App() {
                 </Sidebar>
               }
               path="/request_show"
+            />
+            <Route
+              element={
+                <Sidebar>
+                  <Layout>
+                    <Warehouse />
+                  </Layout>
+                </Sidebar>
+              }
+              path="/pending"
             />
           </Route>
         </Routes>

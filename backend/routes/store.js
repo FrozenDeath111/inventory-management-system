@@ -1,6 +1,6 @@
 const express = require("express");
 const requireAuth = require("../middleware/requireAuth.js");
-const { showProduct, addToStore, getStoreData, requestProduct, updateStore, getRequests } = require("../controllers/storeController.js");
+const { showProduct, addToStore, getStoreData, requestProduct, updateStore, getRequests, updatePending } = require("../controllers/storeController.js");
 
 const router = express.Router();
 
@@ -21,5 +21,8 @@ router.post("/request-stock", requireAuth, requestProduct);
 
 // update store
 router.patch("/update-store", requireAuth, updateStore);
+
+// update pending
+router.patch("/update-pending", requireAuth, updatePending);
 
 module.exports = router;

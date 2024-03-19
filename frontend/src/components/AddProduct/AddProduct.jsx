@@ -70,7 +70,7 @@ const AddProduct = () => {
               category,
               details,
               quantity,
-              warehouse_staff_username: staffName,
+              staff_username: staffName,
             }),
           }
         );

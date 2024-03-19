@@ -85,7 +85,10 @@ const RequestStock = () => {
     try {
       if (!productName && !quantity) {
         setError("All Field Must Have Values...");
-      } else {
+      } else if (quantity==0) {
+        setError("Quantity Must Be More Than 0");
+      } 
+      else {
         requestStock(productName, quantity);
       }
     } catch (error) {
@@ -96,7 +99,7 @@ const RequestStock = () => {
   return (
     <div className="add-product">
       <form>
-        <h2>Request Product</h2>
+        <h1>Request Product</h1>
         <label htmlFor="quantity">Quantity</label>
         <input
           type="number"

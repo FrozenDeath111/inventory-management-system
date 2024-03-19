@@ -7,6 +7,7 @@ import StoreManager from "./StoreManager";
 import ExitToApp from "@mui/icons-material/ExitToApp";
 import { useLogout } from "../../customHooks/useLogout";
 import { useNavigate } from "react-router-dom";
+import WarehouseStaff from "./WarehouseStaff";
 
 const Sidebar = ({children}) => {
     const { user } = useAuthContext();
@@ -49,7 +50,7 @@ const Sidebar = ({children}) => {
                     isAdmin && <Admin></Admin>
                 }
                 {
-                    isWarehouseStaff && <h1>WS</h1>
+                    isWarehouseStaff && <WarehouseStaff></WarehouseStaff>
                 }
                 {
                     isStoreManager && <StoreManager></StoreManager>

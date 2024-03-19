@@ -19,7 +19,7 @@
     border: 5px solid rgb(39, 0, 93);
 }
 
-.add-product > form > h2 {
+.add-product > form > h1 {
     color: rgb(39, 0, 93);
     font-size: xx-large;
     margin-bottom: 2rem;

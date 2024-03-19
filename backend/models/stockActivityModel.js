@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Product = require("./productModel");
 const Schema = mongoose.Schema;
 
 const stockActivitySchema = new Schema(
@@ -8,6 +7,10 @@ const stockActivitySchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Product",
       required: true,
+    },
+    request_id: {
+      type: Schema.Types.ObjectId,
+      ref: "Request",
     },
     quantity: {
       type: Number,
@@ -21,7 +24,7 @@ const stockActivitySchema = new Schema(
       type: Date,
       default: Date.now,
     },
-    warehouse_staff_username: {
+    staff_username: {
       type: String,
     },
   },

@@ -78,6 +78,10 @@
     color: rgb(39, 0, 93);
 }
 
+.description-style > h3, .history-style > h3 {
+    color: rgb(39, 0, 93);
+}
+
 .history-style {
     display: flex;
     flex-direction: column;
@@ -89,4 +93,3 @@
     border-bottom: 2px dashed rgb(39, 0, 93);
     margin-bottom: 1rem;
 }
-

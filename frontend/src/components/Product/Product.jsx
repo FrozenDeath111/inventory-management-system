@@ -46,6 +46,7 @@ const Product = () => {
             );
             jsonData.productHistory[index]["additionDate"] = date;
           }
+          
           setProductHistory(jsonData.productHistory);
           setError("");
         }

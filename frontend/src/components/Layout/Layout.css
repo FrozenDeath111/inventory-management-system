@@ -30,7 +30,7 @@
 
 .sidebar-items > a:hover {
     background-color: rgb(22, 0, 53);
-    border-left: 3px solid rgb(174, 210, 255);
+    border-left: 3px solid rgb(228, 241, 255);
 }
 
 .sidebar-items > a > svg {
@@ -69,4 +69,19 @@
     cursor: pointer;
     background-color: rgb(174, 210, 255);
     color: rgb(39, 0, 93);
+}
+
+.profile {
+    padding: 1rem;
+    margin: 1rem;
+    border: 3px solid rgb(174, 210, 255);
+    border-radius: 1rem;
+}
+
+.profile > h1, h2, h3{
+    color: rgb(228, 241, 255);
+}
+
+.profile > h1 {
+    border-bottom: 2px solid rgb(174, 210, 255);
 }
