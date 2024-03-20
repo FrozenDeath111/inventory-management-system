@@ -27,6 +27,7 @@ const Home = (props) => {
 
   return (
     <div className="home">
+      <h1>Wave Through Your Inventory</h1>
       <img
         src="/wave.svg"
         className={enableLogin ? "bg-image-blur" : "bg-image"}

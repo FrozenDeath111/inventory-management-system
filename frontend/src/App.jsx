@@ -19,6 +19,7 @@ import Warehouse from "./components/Warehouse/Warehouse";
 import ProductListWH from "./components/Warehouse/ProductListWH";
 import StaffInfo from "./components/User/StaffInfo";
 import StaffRegister from "./components/User/StaffRegister";
+import ErrorRoute from "./utils/ErrorRoute";
 
 function App() {
   const [enableLogin, setEnableLogin] = useState(false);
@@ -152,6 +153,8 @@ function App() {
               }
               path="/pending"
             />
+          </Route>
+          <Route element={<ErrorRoute/>} path="*">
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,0 +1,27 @@
+.error-handler {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+    color: crimson;
+    background-color: aliceblue;
+}
+
+.error-handler > h1 {
+    padding: 1rem;
+}
+
+.error-handler > a {
+    font-size: large;
+    font-weight: 700;
+    padding: 1rem;
+    border: 2px solid crimson;
+    border-radius: 1rem;
+    color: crimson;
+}
+
+.error-handler > a:hover {
+    background-color: crimson;
+    color: aliceblue;
+}
