@@ -16,7 +16,20 @@
     height: 100dvh;
 }
 
-.admin-dash > div {
+.warehouse-dash, .store-dash {
+    display: grid;
+    grid-template-areas:
+    'head head head head head head'
+    'item1 item1 item2 item2 item2 item2'
+    'item1 item1 item2 item2 item2 item2'
+    'item3 item3 item3 item3 item3 item3'
+    'item3 item3 item3 item3 item3 item3';
+    gap: .1rem;
+    background-color: rgb(228, 241, 255);
+    height: 100dvh;
+}
+
+.admin-dash > div, .warehouse-dash > div, .store-dash > div {
     display: flex;
     flex-direction: column;
     font-size: medium;
@@ -79,4 +92,22 @@
     align-items: center;
     height: 100%;
     width: 45%;
+}
+
+.record-area > h1 {
+    padding: 1rem;
+    margin: 0rem 1rem;
+    color: rgb(39, 0, 93);
+    border-bottom: 2px solid rgb(39, 0, 93);
+}
+
+.record-holder {
+    padding: 1rem;
+    margin: 0rem 1rem;
+    overflow-y: auto;
+}
+
+.record-holder > table {
+    width: 100%;
+    text-align: center;
 }

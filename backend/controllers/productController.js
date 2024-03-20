@@ -154,6 +154,32 @@ const getDashboardData = async (req, res) => {
       const data = await StockActivity.find().sort({updatedAt: -1});
 
       res.status(200).json(data);
+    } else if(role === 2) {
+      const data = await StockActivity.find({
+        $or: [{
+          state: "Received",
+        },{
+          state: "Shipped",
+        }]
+      }).sort({updatedAt: -1});
+
+      for(let index in data){
+        let {name} = await Product.findOne({_id: data[index].product_id}).select('name');
+        data[index]._doc.product_name = name;
+      }
+
+      res.status(200).json(data);
+    } else if(role === 3) {
+      const {_id} = await User.findOne({username}).select('_id');
+      const storeStockData = await Store.find({store_manager_id: _id});
+      const saleData = await StockActivity.find({staff_username: username, state:"Sale"}).sort({updatedAt: -1});
+
+      for(let index in saleData){
+        let {name} = await Product.findOne({_id: saleData[index].product_id}).select('name');
+        saleData[index]._doc.product_name=name;
+      }
+
+      res.status(200).json({storeStockData, saleData});
     } else {
       res.status(401).json({ error: "Authorization Level Problem" });
     }
