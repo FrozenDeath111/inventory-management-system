@@ -103,7 +103,7 @@ const AddProduct = () => {
   return (
     <div className="add-product">
       <form>
-        <h2>Add Product</h2>
+        <h1>Add Product</h1>
         <input
           type="text"
           placeholder="Product Name"

@@ -152,13 +152,12 @@ const RequestShow = () => {
   return (
     <div className="product-container">
       <div className="product-list">
-        {error && <h2 className="error-show">{error}</h2>}
         {requestData ? (
           <h1>Requests</h1>
         ) : (
           <h1 className="error-show">No Request Yet</h1>
         )}
-
+        {error && <h2 className="error-show">{error}</h2>}
         <table>
           <tbody className="table-body">
             <tr>

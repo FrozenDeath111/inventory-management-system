@@ -12,16 +12,23 @@ const createToken = (username) => {
 
 // register controller
 const registerUser = async (req, res) => {
+  const {username} = req.user;
   // get user entry
-  const { username, name, password, role } = req.body;
-
-  console.log(req.body);
+  const registerInfo = req.body;
 
   try {
-    // send data to Database
-    const msg = await User.register(username, name, password, role);
+    // check role
+    const { role } = await User.findOne({ username }).select("role");
 
-    res.status(200).json({ msg: msg });
+    if(role === 1){
+      
+      let msg = await User.register(registerInfo.username, registerInfo.name,
+        registerInfo.password, registerInfo.role);
+
+      res.status(200).json({ msg: msg });
+    } else {
+      res.status(401).json({error: "Unauthorized Access"});
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -54,36 +61,6 @@ const loginUser = async (req, res) => {
   }
 };
 
-// verify token
-const verifyToken = async (req, res) => {
-  // verify authentication
-  const { authorization } = req.headers;
-
-  if (!authorization) {
-    return res.status(401).json({ error: "Authorization token required" });
-  }
-
-  // split from Bearer
-  const token = authorization.split(" ")[1];
-
-  try {
-    // verify token
-    const { username } = jwt.verify(token, process.env.JWT_SECRET);
-
-    req.user = await User.findOne({ username }).select("username");
-    
-    if(req.user){
-      res.status(200).json({msg: "Authorized Token"});
-    } else {
-      res.status(401).json({ error: "Unauthorized Request" });
-    }
-
-  } catch (error) {
-    console.log(error);
-    res.status(401).json({ error: "Unauthorized Request" });
-  }
-}
-
 // get all user info
 const getUserInfo = async (req, res) => {
   const { username } = req.user;
@@ -94,10 +71,13 @@ const getUserInfo = async (req, res) => {
 
     if (role === 1) {
       // send all user info
-      const allInfo = await User.find();
-      res.status(200).json(allInfo);
+      const userInfo = await User.find();
+
+      delete userInfo['password'];
+
+      res.status(200).json(userInfo);
     } else {
-      res.status(401).json({ msg: "Authorization Level Not High Enough" });
+      res.status(401).json({ error: "Authorization Level Not High Enough" });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -128,6 +108,5 @@ module.exports = {
   registerUser,
   loginUser,
   getUserInfo,
-  verifyToken,
   getWarehouseStaff,
 };

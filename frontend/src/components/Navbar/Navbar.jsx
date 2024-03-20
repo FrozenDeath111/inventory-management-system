@@ -28,7 +28,7 @@ const toDashboard = () => {
     <div className="navbar">
       <div className="nav-element">
         <Link to="/">
-          <img src="/vite.svg" alt="Logo" />
+          <img id="logo" src="/iconInv.png" alt="Logo" />
           IM-System
         </Link>
       </div>

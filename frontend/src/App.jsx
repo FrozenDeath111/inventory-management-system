@@ -17,6 +17,8 @@ import RequestStock from "./components/Store/RequestStock";
 import RequestShow from "./components/Store/RequestShow";
 import Warehouse from "./components/Warehouse/Warehouse";
 import ProductListWH from "./components/Warehouse/ProductListWH";
+import StaffInfo from "./components/User/StaffInfo";
+import StaffRegister from "./components/User/StaffRegister";
 
 function App() {
   const [enableLogin, setEnableLogin] = useState(false);
@@ -39,6 +41,26 @@ function App() {
                 </Sidebar>
               }
               path="/dashboard"
+            />
+            <Route
+              element={
+                <Sidebar>
+                  <Layout>
+                    <StaffInfo />
+                  </Layout>
+                </Sidebar>
+              }
+              path="/staff-info"
+            />
+            <Route
+              element={
+                <Sidebar>
+                  <Layout>
+                    <StaffRegister />
+                  </Layout>
+                </Sidebar>
+              }
+              path="/register"
             />
             <Route
               element={

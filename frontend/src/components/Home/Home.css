@@ -37,15 +37,15 @@
     left: 40%;
     height: 350px;
     width: 25%;
-    background-color: rgba(55, 55, 55, 0.8);
-    border: 4px solid chartreuse;
+    background-color: rgba(228, 241, 255, 0.5);
+    border: 4px solid rgb(39, 0, 93);
     border-radius: 1rem;
     transition: 0.5s ease;
 }
 
 .login-form:hover {
-    background-color: rgba(0, 0, 0, 0.66);
-    border: 4px solid aqua;
+    background-color: rgba(39, 0, 93, 0.8);
+    border: 4px solid rgb(174, 210, 255);
 }
 
 .login-form > form {
@@ -67,24 +67,36 @@
 
 .login-form > form > h3 {
     margin-bottom: 1rem;
-    color: aliceblue;
+    color: rgb(39, 0, 93);
     font-size: xx-large;
+    transition: 0.5s ease;
+}
+
+.login-form:hover > form > h3 {
+    color: rgb(174, 210, 255);
+}
+
+.login-form:hover > form > .input-area {
+    background-color: rgba(39, 0, 93, 0.6);
+    border: 2px solid rgb(174, 210, 255);
+    color: rgb(174, 210, 255);
 }
 
 .input-area {
     height: 2rem;
-    background-color: aliceblue;
-    border: 2px solid chartreuse;
+    background-color: rgba(174, 210, 255, 0.6);
+    border: 2px solid rgb(39, 0, 93);
     margin-bottom: 1rem;
     padding: .1rem 1rem;
     outline: none;
     transition: .5s ease;
+    font-weight: 500;
 }
 
 .input-area:focus {
-    background-color: rgba(0, 0, 0, 0.66);
-    border: 2px solid aliceblue;
-    color: aliceblue;
+    background-color: rgb(174, 210, 255, 0.6);
+    border: 2px solid rgb(39, 0, 93);
+    color: rgb(39, 0, 93);
 }
 
 .button-container {
@@ -96,11 +108,11 @@
 .button-container > button {
     border-style: none;
     height: 100%;
-    background-color: aliceblue;
+    background-color: rgb(174, 210, 255);
     padding: 5px 10px;
     font-size: large;
     font-weight: 700;
-    border: 1px solid chartreuse;
+    border: 2px solid rgb(39, 0, 93);
     transition: .5s ease;
     width: 100%;
     margin: auto;

@@ -61,13 +61,13 @@ const getProducts = async (req, res) => {
         products[index]._doc.stock = warehouse_stock;
       }
 
-      const staffNames = await User.find({role: 2});
+      const staffNames = await User.find({ role: 2 });
 
-      delete staffNames['name'];
-      delete staffNames['password'];
-      delete staffNames['role'];
+      delete staffNames["name"];
+      delete staffNames["password"];
+      delete staffNames["role"];
 
-      res.status(200).json({products, staffNames});
+      res.status(200).json({ products, staffNames });
     } else if (role === 2) {
       const products = await Product.find().sort({ _id: -1 });
       delete products["details"];
@@ -90,13 +90,75 @@ const getProducts = async (req, res) => {
 
 // get product info and history
 const getProductHistory = async (req, res) => {
+  const { username } = req.user;
+
   try {
-    const _id = req.params._id;
+    const { role } = await User.findOne({ username }).select("role");
+    if (role === 1) {
+      const _id = req.params._id;
 
-    const productDetails = await Product.findOne({ _id });
-    const productHistory = await StockActivity.find({ product_id: _id });
+      const productDetails = await Product.findOne({ _id });
+      const productHistory = await StockActivity.find({ product_id: _id }).sort({updatedAt: -1});
 
-    res.status(200).json({ productDetails, productHistory });
+      const productStock = {
+        warehouseStock: 0,
+        storeStock: 0,
+        saleStock: 0,
+      };
+
+      const warehouse_stock = await Warehouse.findOne({ product_id: _id });
+      const store_stock = await Store.find({product_id: _id});
+
+      productStock.warehouseStock += warehouse_stock.warehouse_stock;
+
+      for(let index in store_stock){
+        productStock.storeStock += store_stock[index].store_stock;
+        productStock.saleStock += store_stock[index].sale_stock;
+      }
+
+      res.status(200).json({ productDetails, productHistory, productStock });
+    } else if (role === 2) {
+      const _id = req.params._id;
+
+      const productDetails = await Product.findOne({ _id });
+      const productHistory = await StockActivity.find({ product_id: _id }).sort({updatedAt: -1});
+
+      const productStock = {
+        warehouseStock: 0,
+        storeStock: 0,
+        saleStock: 0,
+      };
+
+      const warehouse_stock = await Warehouse.findOne({ product_id: _id });
+      productStock.warehouseStock += warehouse_stock.warehouse_stock;
+
+      res.status(200).json({ productDetails, productHistory, productStock });
+
+    } else if (role === 3) {
+      const _id = req.params._id;
+
+      const productDetails = await Product.findOne({ _id });
+      const productHistory = await StockActivity.find({ product_id: _id, staff_username:username }).sort({updatedAt: -1});
+
+      const productStock = {
+        warehouseStock: 0,
+        storeStock: 0,
+        saleStock: 0,
+      };
+
+      const warehouse_stock = await Warehouse.findOne({ product_id: _id });
+      productStock.warehouseStock += warehouse_stock.warehouse_stock;
+
+      const store_id = await User.findOne({username}).select("_id");
+      const store_stock = await Store.findOne({product_id: _id, store_manager_id: store_id._id});
+
+      productStock.storeStock = store_stock.store_stock;
+      productStock.saleStock = store_stock.sale_stock;
+
+      res.status(200).json({ productDetails, productHistory, productStock });
+    } else {
+      res.status(401).json({ error: "Unauthorized Access" });
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -145,48 +207,58 @@ const getActivity = async (req, res) => {
 
 // get dashboard data
 const getDashboardData = async (req, res) => {
-  const {username} = req.user
+  const { username } = req.user;
 
   try {
     const { role } = await User.findOne({ username }).select("role");
 
-    if(role === 1) {
-      const data = await StockActivity.find().sort({updatedAt: -1});
+    if (role === 1) {
+      const data = await StockActivity.find().sort({ updatedAt: -1 });
 
       res.status(200).json(data);
-    } else if(role === 2) {
+    } else if (role === 2) {
       const data = await StockActivity.find({
-        $or: [{
-          state: "Received",
-        },{
-          state: "Shipped",
-        }]
-      }).sort({updatedAt: -1});
+        $or: [
+          {
+            state: "Received",
+          },
+          {
+            state: "Shipped",
+          },
+        ],
+      }).sort({ updatedAt: -1 });
 
-      for(let index in data){
-        let {name} = await Product.findOne({_id: data[index].product_id}).select('name');
+      for (let index in data) {
+        let { name } = await Product.findOne({
+          _id: data[index].product_id,
+        }).select("name");
         data[index]._doc.product_name = name;
       }
 
       res.status(200).json(data);
-    } else if(role === 3) {
-      const {_id} = await User.findOne({username}).select('_id');
-      const storeStockData = await Store.find({store_manager_id: _id});
-      const saleData = await StockActivity.find({staff_username: username, state:"Sale"}).sort({updatedAt: -1});
+    } else if (role === 3) {
+      const { _id } = await User.findOne({ username }).select("_id");
+      const storeStockData = await Store.find({ store_manager_id: _id });
+      const saleData = await StockActivity.find({
+        staff_username: username,
+        state: "Sale",
+      }).sort({ updatedAt: -1 });
 
-      for(let index in saleData){
-        let {name} = await Product.findOne({_id: saleData[index].product_id}).select('name');
-        saleData[index]._doc.product_name=name;
+      for (let index in saleData) {
+        let { name } = await Product.findOne({
+          _id: saleData[index].product_id,
+        }).select("name");
+        saleData[index]._doc.product_name = name;
       }
 
-      res.status(200).json({storeStockData, saleData});
+      res.status(200).json({ storeStockData, saleData });
     } else {
       res.status(401).json({ error: "Authorization Level Problem" });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-}
+};
 
 // update stock
 const updateStock = async (req, res) => {
@@ -301,33 +373,36 @@ const updateStock = async (req, res) => {
 const addProduct = async (req, res) => {
   const { username } = req.user;
 
-  const {product_id, addAmount, staffName} = req.body;
+  const { product_id, addAmount, staffName } = req.body;
 
   try {
     const { role } = await User.findOne({ username }).select("role");
 
     if (role === 1) {
-      await Warehouse.updateOne({product_id},{
-        $inc : {
-          warehouse_stock: +addAmount,
+      await Warehouse.updateOne(
+        { product_id },
+        {
+          $inc: {
+            warehouse_stock: +addAmount,
+          },
         }
-      })
+      );
 
       await StockActivity.create({
         product_id,
         quantity: addAmount,
         state: "Received",
         staff_username: staffName,
-      })
-      
-      res.status(200).json({msg: "Stock Added Successfully"});
+      });
+
+      res.status(200).json({ msg: "Stock Added Successfully" });
     } else {
       res.status(401).json({ error: "Authorization Level Problem" });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-}
+};
 
 module.exports = {
   createProduct,

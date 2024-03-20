@@ -5,13 +5,10 @@ const requireAuth = require("../middleware/requireAuth.js");
 const router = express.Router();
 
 // register
-router.post('/register', registerUser);
+router.post('/register', requireAuth, registerUser);
 
 // login
 router.post("/login", loginUser);
-
-// verify
-router.post("/verify", verifyToken);
 
 // get all userInfo
 router.get("/all-user-info", requireAuth, getUserInfo);

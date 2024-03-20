@@ -2,7 +2,10 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "../../customHooks/useAuthContext";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import InfoIcon from '@mui/icons-material/Info';
 import FormatListNumberedRtlIcon from "@mui/icons-material/FormatListNumberedRtl";
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import "./Layout";
 
 const Admin = () => {
@@ -31,8 +34,16 @@ const Admin = () => {
         Product List
       </Link>
       <Link to="/request_show">
-        <FormatListNumberedRtlIcon />
-        Request
+        <InfoIcon />
+        Request Status
+      </Link>
+      <Link to="/staff-info">
+        <PeopleAltIcon />
+        Staff Data
+      </Link>
+      <Link to="/register">
+        <PersonAddIcon />
+        Staff Register
       </Link>
     </div>
   );

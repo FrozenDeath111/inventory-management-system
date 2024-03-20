@@ -130,7 +130,7 @@ const StoreDash = ({ user }) => {
                     labels: saleStockGD.date,
                     datasets: [
                       {
-                        label: "Receive Stock",
+                        label: "Sale Stock",
                         data: saleStockGD.quantity,
                       },
                     ],

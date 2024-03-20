@@ -20,8 +20,6 @@ const Home = (props) => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    console.log(username, password);
-
     await login(username, password);
 
     navigate("/dashboard");
@@ -35,7 +33,6 @@ const Home = (props) => {
         id="bg-image"
         alt=""
       />
-      <h1 className="heading">Get You Inventory Up and Running</h1>
       {enableLogin ? (
         <div className="login-form" id="login-form">
           <form>

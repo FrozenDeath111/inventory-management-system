@@ -3,7 +3,6 @@ import "./Product.css";
 import { useAuthContext } from "../../customHooks/useAuthContext";
 import { Link } from "react-router-dom";
 
-import Pagination from "@mui/material/Pagination";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
@@ -105,7 +104,6 @@ const ProductList = () => {
         data[index].stock += addAmount;
         data[index].addStock = 0;
         setProductList(data);
-        setStaffName('');
         setError('');
       }
     };
@@ -121,10 +119,6 @@ const ProductList = () => {
     } catch (error) {
       setError(error);
     }
-  };
-
-  const handlePagination = (e) => {
-    console.log(e.target.textContent);
   };
 
   return (
@@ -185,7 +179,7 @@ const ProductList = () => {
               ))}
           </tbody>
         </table>
-        <div className="">
+        <div className="staff-select-area">
           <select
             className="staff-select"
             defaultValue={staffName}
@@ -201,14 +195,6 @@ const ProductList = () => {
                 </option>
               ))}
           </select>
-        </div>
-        <div className="pagination">
-          <Pagination
-            count={10}
-            variant="outlined"
-            shape="rounded"
-            onChange={handlePagination}
-          />
         </div>
       </div>
     </div>

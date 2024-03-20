@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../customHooks/useAuthContext";
 import { Link } from "react-router-dom";
-import Pagination from "@mui/material/Pagination";
 
 const ProductListWH = () => {
   const { user } = useAuthContext();
   const [error, setError] = useState(null);
 
   const [productList, setProductList] = useState([]);
-  const [pageData, setPageData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
@@ -61,10 +59,6 @@ const ProductListWH = () => {
     }
   }, [user]);
 
-  const handlePagination = (e) => {
-    e.target.textContent
-  };
-
   return (
     <div className="product-container">
       <div className="product-list">
@@ -91,14 +85,6 @@ const ProductListWH = () => {
               ))}
           </tbody>
         </table>
-        <div className="pagination">
-          <Pagination
-            count={pageCount}
-            variant="outlined"
-            shape="rounded"
-            onChange={handlePagination}
-          />
-        </div>
       </div>
     </div>
   );

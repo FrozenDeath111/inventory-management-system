@@ -1,5 +1,6 @@
 .table-body {
   color: rgb(39, 0, 93);
+  overflow-y: auto;
 }
 
 .table-body > tr {

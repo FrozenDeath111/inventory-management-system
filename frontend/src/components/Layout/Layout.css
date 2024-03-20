@@ -40,7 +40,7 @@
 .container {
     width: 100%;
     min-width: fit-content;
-    background-color: rgb(148, 0, 255);
+    background-color: rgb(62, 0, 150);
 }
 
 .logout-button {
